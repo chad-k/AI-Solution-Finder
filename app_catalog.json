@@ -1,0 +1,320 @@
+{
+  "preview_mode": true,
+  "contact_url": "https://www.hertzler.com/contact-us",
+  "contact_supports_app_parameter": false,
+  "apps": [
+    {
+      "id": "predictive_spc",
+      "name": "Predictive SPC",
+      "goals": [
+        "predict"
+      ],
+      "scopes": [],
+      "summary": "Explore estimated out-of-spec and selected control-rule risks over the next several samples.",
+      "why": "For teams seeking earlier warning of changing process behavior.",
+      "required_data": [
+        "For customization: time-ordered measurements, timestamps, part and machine identifiers, targets and specification limits",
+        "Relevant process parameters and shift context; representative history for model validation"
+      ],
+      "outputs": [
+        "Future OOS and selected rule-risk estimates",
+        "Part/machine status dashboard and date-time filtering",
+        "Feature relationships, what-if exploration, and suggested setpoint/action panels"
+      ],
+      "limitations": "The supplied app uses generated demo data, not a customer upload. Its rule-risk model covers selected Nelson-like patterns, not all eight Nelson rules. Associations and model suggestions do not establish causes or guarantee improvement.",
+      "customizations": [
+        "Discuss your data connections, workflow, and reporting requirements with Hertzler. Scope and feasibility are assessed before any commitment."
+      ],
+      "demo_url": "https://predictive-spc.streamlit.app/",
+      "contact_url": "",
+      "enabled": true,
+      "approved": false,
+      "demo_instructions": "Use the built-in synthetic data. Select a part, machine, and date-time range; explore Detail View and Current Status Dashboard.",
+      "source_file": "predictive_spc.py",
+      "review_status": "source_reviewed"
+    },
+    {
+      "id": "batch_anomaly",
+      "name": "Batch Anomaly Detection",
+      "goals": [
+        "unusual"
+      ],
+      "scopes": [
+        "batch"
+      ],
+      "summary": "Identify unusual existing batches, lots, or work orders using measurements and process parameters.",
+      "why": "For teams comparing production groups and investigating what makes a batch unusual.",
+      "required_data": [
+        "CSV with a batch, lot, or work-order grouping column",
+        "At least three selected numeric features",
+        "Part/SKU column where available; optional timestamp and machine/operator/shift context"
+      ],
+      "outputs": [
+        "Group-level anomaly scores and exports",
+        "Adaptive anomaly threshold and feature association indicators",
+        "Category anomaly rates and anomalous-versus-normal group comparisons"
+      ],
+      "limitations": "This code detects anomalies in existing groups; it does not predict future batch defects. Scores are not defect probabilities, and contribution indicators do not prove causes.",
+      "customizations": [
+        "Discuss your data connections, workflow, and reporting requirements with Hertzler. Scope and feasibility are assessed before any commitment."
+      ],
+      "demo_url": "https://batch-defect-prediction.streamlit.app/",
+      "contact_url": "",
+      "enabled": true,
+      "approved": false,
+      "demo_instructions": "In the sidebar change Use to Demo data, select a part and grouping column, then choose at least three numeric features.",
+      "source_file": "batch track2 (1).py",
+      "review_status": "source_reviewed"
+    },
+    {
+      "id": "mislabel",
+      "name": "Mislabel Detection",
+      "goals": [
+        "unusual"
+      ],
+      "scopes": [
+        "part_type",
+        "individual"
+      ],
+      "summary": "Find records that behave differently from their declared part type and explore possible alternative types.",
+      "why": "For teams investigating potential part-label mismatches or unusual measurements within a declared type.",
+      "required_data": [
+        "CSV with declared part type or label",
+        "At least three numeric measurement/process features",
+        "Record ID optional; reference data for multiple types needed to suggest alternatives"
+      ],
+      "outputs": [
+        "Within-type anomaly flags and CSV export",
+        "Cross-type fit suggestions and per-feature z-scores",
+        "Completeness checks, scatter plots, PCA, distributions and correlations"
+      ],
+      "limitations": "An anomaly is not proof of a wrong label. The displayed alternative-type likelihood is a heuristic fit score, not a calibrated probability. Missing feature values can reduce usable records.",
+      "customizations": [
+        "Discuss your data connections, workflow, and reporting requirements with Hertzler. Scope and feasibility are assessed before any commitment."
+      ],
+      "demo_url": "https://mislabel-detection.streamlit.app/",
+      "contact_url": "",
+      "enabled": true,
+      "approved": false,
+      "demo_instructions": "Choose Demo Data in Data Source, map the part label and at least three numeric features, then select Analyze Data.",
+      "source_file": "mislabel_detection_dashboard_export.py",
+      "review_status": "source_reviewed"
+    },
+    {
+      "id": "inspection_frequency",
+      "name": "Smart Inspection Frequency",
+      "goals": [
+        "frequency"
+      ],
+      "scopes": [],
+      "summary": "Evaluate inspection intervals using process capability, control-rule flags, recorded failures and estimated drift.",
+      "why": "For teams assessing how frequently to inspect each process using measurement history and specifications.",
+      "required_data": [
+        "Two Excel workbooks: measurement export and standards; both require a Part Number column",
+        "The export requires Date/Time plus numeric measurement columns and selected process grouping columns",
+        "At least 15 rows/subgroups per group; select specification limits, target and subgroup-size fields where available",
+        "Optional Real-time failures column and chart-type field"
+      ],
+      "outputs": [
+        "Suggested interval in hours and frequency label for each group",
+        "Capability, control-rule flags per week, recorded failure rate, drift estimate and risk level",
+        "Comparison with the current median inspection interval",
+        "Inspection frequency/matrix tables and downloadable Excel workbook, including excluded groups"
+      ],
+      "limitations": "Intervals are heuristic recommendations, not validated guarantees. Groups below 15 subgroups are excluded; rule flags are suppressed below 20 observations. Missing failure records are treated as zero and insufficient drift evidence can use a 72-hour fallback, so missing data must not be interpreted as proof of low risk. Use consistent standards per part and review intervals against process and inspection requirements.",
+      "customizations": [
+        "Discuss customer-specific grouping, data connections, reports and interval rules with Hertzler; scope and feasibility require assessment."
+      ],
+      "demo_url": "https://smart-inspection-frequency.streamlit.app/",
+      "contact_url": "",
+      "enabled": true,
+      "approved": false,
+      "source_file": "inspection_frequency_app.py",
+      "review_status": "source_reviewed",
+      "demo_instructions": "Choose Use GitHub repo files if the deployed workbooks are available, or upload both Excel files. Select grouping and measurement columns, map specifications and subgroup size, set the safety factor, and click Build inspection frequency."
+    },
+    {
+      "id": "spc_interpretation",
+      "name": "SPC Auto-Interpretation",
+      "goals": [
+        "signals"
+      ],
+      "scopes": [],
+      "summary": "Explain control-chart rule signals with potential causes and investigation actions.",
+      "why": "For teams who want context and next steps when a chart signals unusual process behavior.",
+      "required_data": [
+        "For customization: time-ordered subgroups, part/machine context, and an appropriate chart baseline",
+        "Optional verified past-event causes and actions for matching by part, machine and rule"
+      ],
+      "outputs": [
+        "X-bar chart and optional R chart",
+        "Nelson, Western Electric, simplified AIAG and custom rule selections",
+        "Past-event or generalized interpretation, hover details and downloadable findings"
+      ],
+      "limitations": "This version runs on synthetic subgroups of size 2–10 and demo past events; it has no customer-file upload. Suggested causes require investigation. The AIAG option is explicitly simplified.",
+      "customizations": [
+        "Discuss your data connections, workflow, and reporting requirements with Hertzler. Scope and feasibility are assessed before any commitment."
+      ],
+      "demo_url": "https://spc-auto-interpretation.streamlit.app/",
+      "contact_url": "",
+      "enabled": true,
+      "approved": false,
+      "demo_instructions": "Select a part and machine, choose a rule set, and switch between past, generalized, or hybrid interpretation.",
+      "source_file": "spc_auto_interpret_demov2.py",
+      "review_status": "source_reviewed"
+    },
+    {
+      "id": "entry_integrity",
+      "name": "Operator Data Integrity Checker",
+      "goals": [
+        "integrity"
+      ],
+      "scopes": [],
+      "summary": "Review unusual entry timing, repeated values, and other data-entry patterns.",
+      "why": "For teams investigating possible entry errors and records needing follow-up.",
+      "required_data": [
+        "CSV or Excel with operator, entry timestamp, and numeric measurement",
+        "Optional actual inspection timestamp, part, machine, test and target"
+      ],
+      "outputs": [
+        "Rule-based record risk scores and reasons",
+        "Operator summaries, batch-entry timing, repeated-value and low-variation analysis",
+        "Downloadable results"
+      ],
+      "limitations": "Rule-based flags do not establish misconduct or intent. Thresholds and patterns need process-specific review. This is not an out-of-spec detector.",
+      "customizations": [
+        "Discuss your data connections, workflow, and reporting requirements with Hertzler. Scope and feasibility are assessed before any commitment."
+      ],
+      "demo_url": "https://operator-data-integrity-checker.streamlit.app/",
+      "contact_url": "",
+      "enabled": true,
+      "approved": false,
+      "demo_instructions": "Start with Use Demo Data, review the dashboard tabs, and adjust detection thresholds in the sidebar.",
+      "source_file": "data_int_check.py",
+      "review_status": "source_reviewed"
+    },
+    {
+      "id": "database_health",
+      "enabled": true,
+      "approved": false,
+      "contact_url": "",
+      "name": "AI Database Health Assistant",
+      "demo_url": "https://ai-database-health-assistant.streamlit.app/",
+      "goals": [
+        "database"
+      ],
+      "scopes": [],
+      "summary": "Review SQL Server storage, indexes, query performance, blocking and available query history.",
+      "why": "For teams investigating database slowness, storage pressure, or maintenance concerns.",
+      "required_data": [
+        "Demo mode needs no database connection",
+        "Real use requires SQL Server connectivity, an ODBC driver and appropriate diagnostic permissions",
+        "Historical query views require available Query Store data"
+      ],
+      "outputs": [
+        "Rule-based health scores and prioritized issues",
+        "Storage, tables, fragmentation, missing-index suggestions and blocking views",
+        "Cached query statistics, Query Store history, supported-question answers and report export"
+      ],
+      "limitations": "Diagnostics are read-only; suggested maintenance SQL is not executed. Scores and recommendations are heuristic. Diagnostic history depends on SQL Server data availability; this is not a full integrity check or automatic repair service.",
+      "demo_instructions": "Keep Mode set to Demo Database. Explore the tabs and supported Ask Database questions.",
+      "source_file": "ai_database_health_assistant(1).py",
+      "review_status": "source_reviewed",
+      "customizations": [
+        "Discuss your data connections, workflow, and reporting requirements with Hertzler. Scope and feasibility are assessed before any commitment."
+      ]
+    },
+    {
+      "id": "coa",
+      "enabled": true,
+      "approved": false,
+      "contact_url": "",
+      "name": "Certificate of Analysis Generator",
+      "demo_url": "https://coa-generator.streamlit.app/",
+      "goals": [
+        "certificate"
+      ],
+      "scopes": [],
+      "summary": "Create a certificate preview and downloadable reports from selected quality measurements.",
+      "why": "For teams preparing customer-facing quality certificates for selected production records.",
+      "required_data": [
+        "CSV or Excel columns: Part, Characteristic, Value, LSL, Target, USL",
+        "Optional lot, batch, customer, order, revision and unit fields"
+      ],
+      "outputs": [
+        "Flexible traceability filters and certificate preview",
+        "Per-characteristic results, PASS/FAIL and capability summary",
+        "Word export when the document dependency is installed, and Excel export"
+      ],
+      "limitations": "Use consistent specifications and units for each grouped characteristic; the code uses the first specification values in each group. Approval names are text fields, not an electronic approval workflow. Generated compliance wording requires review.",
+      "demo_instructions": "Use the demo data, choose traceability fields and values, complete certificate settings, then preview and download.",
+      "source_file": "coa_generator_app(1).py",
+      "review_status": "source_reviewed",
+      "customizations": [
+        "Discuss your data connections, workflow, and reporting requirements with Hertzler. Scope and feasibility are assessed before any commitment."
+      ]
+    },
+    {
+      "id": "copilot",
+      "enabled": true,
+      "approved": false,
+      "contact_url": "",
+      "name": "Manufacturing Copilot",
+      "demo_url": "https://manufacturing-copilot.streamlit.app/",
+      "goals": [
+        "dashboard"
+      ],
+      "scopes": [],
+      "summary": "Request manufacturing charts, comparisons, and dashboards using supported typed or voice commands.",
+      "why": "For teams wanting quicker access to quality charts by part, machine, or characteristic.",
+      "required_data": [
+        "CSV or Excel with Timestamp, Part, Machine, Characteristic, Value, LSL, Target, USL",
+        "Typed requests work without a microphone; voice input needs microphone/browser support"
+      ],
+      "outputs": [
+        "Control charts, trends, histograms, scatter plots, EWMA, CUSUM and other supported charts",
+        "Comparisons and dashboards by part, machine or characteristic",
+        "Capability, OOS and selected rule summaries; tables on request"
+      ],
+      "limitations": "Requests use predefined keyword/entity parsing rather than an unrestricted AI model. The uploaded version focuses on SPC; DMS and OEE analysis are not established by this source. Unsupported wording may produce a default summary.",
+      "demo_instructions": "Choose Demo data and try an Example question, such as Create a dashboard for P1 or Compare M1 vs M2 for P2 Length.",
+      "source_file": "manufacturing_copilot(1)(1).py",
+      "review_status": "source_reviewed",
+      "customizations": [
+        "Discuss your data connections, workflow, and reporting requirements with Hertzler. Scope and feasibility are assessed before any commitment."
+      ]
+    },
+    {
+      "id": "optimization",
+      "enabled": true,
+      "approved": false,
+      "contact_url": "",
+      "name": "Process Optimization",
+      "demo_url": "https://process-optimization.streamlit.app/",
+      "goals": [
+        "optimize"
+      ],
+      "scopes": [],
+      "summary": "Explore process parameter settings predicted to bring measurements closer to target.",
+      "why": "For teams evaluating adjustable parameters for each part and machine.",
+      "required_data": [
+        "Data CSV with part, machine, numeric process parameters and measurements",
+        "Separate specifications CSV with part and target; LSL/USL optional",
+        "At least 10 usable rows per part-machine group in this version",
+        "Measurements may be a single column or wide subgroup columns such as Data1..DataN"
+      ],
+      "outputs": [
+        "Optimized parameter settings within selected bounds",
+        "Predicted measurement, distance from target and specification checks",
+        "CSV results, failure reasons and reusable mapping settings"
+      ],
+      "limitations": "The active configuration uses linear regression. Displayed error is predicted distance from target, not cross-validated accuracy. Historical relationships do not prove that changing a setting causes the predicted result; validate suggested settings in a controlled trial.",
+      "demo_instructions": "Select Use repo data and Load / Refresh files if the demo CSVs are deployed; otherwise upload DATA and SPECS CSVs. Map fields, choose parameters and review bounds.",
+      "source_file": "process_optimization.py",
+      "review_status": "source_reviewed",
+      "customizations": [
+        "Discuss your data connections, workflow, and reporting requirements with Hertzler. Scope and feasibility are assessed before any commitment."
+      ]
+    }
+  ]
+}
